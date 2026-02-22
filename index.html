@@ -1,11 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Application Tracker</title>
+    <!-- Tailwind Css -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body>
-    
+
+<body class="bg-[#64748B]/5">
+
+    <header class="w-10/12 mx-auto">
+
+        <h1 class="text-3xl font-bold my-8">Job Application Tracker</h1>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+
+            <div class="bg-white p-6 rounded shadow">
+                <p>Total</p>
+                <h2 id="totalCount" class="text-2xl font-bold">0</h2>
+            </div>
+
+            <div class="bg-white p-6 rounded shadow">
+                <p>Interview</p>
+                <h2 id="interviewCount" class="text-2xl font-bold text-green-600">0</h2>
+            </div>
+
+            <div class="bg-white p-6 rounded shadow">
+                <p>Rejected</p>
+                <h2 id="rejectedCount" class="text-2xl font-bold text-red-600">0</h2>
+            </div>
+
+        </div>
+
+    </header>
+
+    <hr class="w-10/12 mx-auto bg-gray-700 my-5">
+
+    <main class="w-10/12 mx-auto">
+        <!-- Titel and job value -->
+        <div class="flex justify-between mb-4">
+            <h2 class="text-xl font-semibold">Available Jobs</h2>
+            <span id="tabCount">0 Jobs</span>
+        </div>
+
+        <!-- Tabs button -->
+        <div class="flex gap-4 mb-6">
+            <button id="btnAll" class="tab-btn bg-[#3B82F6] py-1 px-4 " data-tab="All">All</button>
+            <button id="btnInterveiw" class="tab-btn bg-[#F1F2F4] py-1 px-4" data-tab="Interview">Interview</button>
+            <button id="btnRejected" class="tab-btn bg-[#F1F2F4] py-1 px-4" data-tab="Rejected">Rejected</button>
+        </div>
+
+        <!-- job coantainer -->
+        <section id="jobsContainer" class="space-y-6">
+
+            <!--job card-1 -->
+            <div id="card" class="flex justify-between bg-white p-4 rounded">
+
+                <!-- card main contain -->
+                <div>
+                    <h1 id="" class="companyName text-xl font-semibold">Mobile First Corp</h1>
+
+                    <p id="" class="position text-[#64748B]">React Native Developer</p>
+
+                    <div id="" class="flex gap-4 my-4">
+                        <p class="location text-[#64748B]">Remote</p>
+                        <p class="type text-[#64748B]">Full-time</p>
+                        <p class="salary text-[#64748B]">$100,000 - $175,000</p>
+                    </div>
+
+                    <p class="status inline-block bg-[#F1F2F4] py-1 px-4">Not Applied</p>
+
+                    <p id="" class="description my-2">Build cross-platform applications using React Native.</p>
+
+                    <div class="flex gap-3 my-2">
+                        <button id="btnInterveiw"
+                            class="tab-btn border-2 py-1 px-4 border-[#10B981] text-[#10B981] rounded  hover:bg-[#10B981] hover:text-white"
+                            data-tab="Interview">Interview</button>
+
+                        <button id="btnRejected"
+                            class="tab-btn border-2 py-1 px-4 border-[#EF4444] text-[#EF4444] rounded hover:bg-[#EF4444] hover:text-white"
+                            data-tab="Rejected">Rejected</button>
+                    </div>
+                </div>
+
+                <!-- card delete button -->
+                <div id="btnDelete" class="delete-btn">
+                    <i
+                        class="fa-solid fa-trash mr-2  border-2 border-[##64748B] text-[#64748B] p-2 rounded-full hover:border-red-600 hover:text-red-600"></i>
+                </div>
+                
+            </div>
+
+        </section>
+
+        <!-- tab button message -->
+        <div id="emptyState" class="hidden text-center py-10">
+            <h3 class="font-semibold">No Jobs Available</h3>
+            <p class="text-gray-500 text-sm">Please select another tab</p>
+        </div>
+
+
+    </main>
 </body>
+
 </html>
