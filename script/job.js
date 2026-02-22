@@ -8,6 +8,8 @@ let rejectedList = [];
 let total = document.getElementById('totalCount')
 let interviewCount = document.getElementById('interviewCount')
 let rejectedCount = document.getElementById('rejectedCount')
+let tabCount = document.getElementById('tabCount')
+
 // console.log(total.innerText);
 
 
@@ -33,6 +35,7 @@ function calculetCount() {
     total.innerText = allJobCard.children.length
     interviewCount.innerText = interviewList.length
     rejectedCount.innerText = rejectedList.length
+    tabCount.innerText = allJobCard.children.length
 }
 calculetCount()
 
