@@ -49,9 +49,11 @@
 
         <!-- Tabs button -->
         <div class="flex gap-4 mb-6">
-            <button id="btnAll" class="tab-btn bg-[#3B82F6] py-1 px-4 " data-tab="All">All</button>
-            <button id="btnInterveiw" class="tab-btn bg-[#F1F2F4] py-1 px-4" data-tab="Interview">Interview</button>
-            <button id="btnRejected" class="tab-btn bg-[#F1F2F4] py-1 px-4" data-tab="Rejected">Rejected</button>
+            <button onclick="toggleStyle('all-tab-btn')" id="all-tab-btn" class="tab-btn bg-[#3B82F6] text-white py-1 px-4 rounded" data-tab="All">All</button>
+
+            <button onclick="toggleStyle('interveiw-tab-btn')" id="interveiw-tab-btn" class="tab-btn bg-[#F1F2F4] py-1 px-4 rounded" data-tab="Interview">Interview</button>
+
+            <button onclick="toggleStyle('rejected-tab-btn')" id="rejected-tab-btn" class="tab-btn bg-[#F1F2F4] py-1 px-4 rounded" data-tab="Rejected">Rejected</button>
         </div>
 
         <!-- job coantainer -->
