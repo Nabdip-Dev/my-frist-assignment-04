@@ -2,7 +2,7 @@
 let interviewList = [];
 let rejectedList = [];
 let activeTab = 'all';
-
+let currentStatus = 'all'
 
 // ===Step-1---call count number===
 let total = document.getElementById('totalCount')
@@ -24,6 +24,9 @@ const mainContainer = document.querySelector('main')
 
 // ---step2.2---Tab Section call----
 const tabSection = document.getElementById('tabSection')
+
+// ---step2.4---emptystate msg call----
+const emptyState = document.getElementById('emptyState')
 
 // ---step2.3---Tab button call----
 const allTabBtn = document.getElementById('all-tab-btn')
@@ -69,6 +72,7 @@ function toggleStyle(id) {
 
     // step-5.3 selected color add
     const selected = document.getElementById(id)
+    currentStatus = id;
     // console.log(selected);
     selected.classList.remove('bg-[#F1F2F4]', 'text-black')
     selected.classList.add('bg-[#3B82F6]', 'text-white')
@@ -80,12 +84,12 @@ function toggleStyle(id) {
     } else if (id == 'all-tab-btn') {
         allJobCard.classList.remove('hidden')
         tabSection.classList.add('hidden')
+        emptyState.classList.add('hidden')
     } else if (id == 'rejected-tab-btn') {
         allJobCard.classList.add('hidden')
         tabSection.classList.remove('hidden')
         renderRejected()
     }
-
 
     // -------------------------------
     if (id == 'interveiw-tab-btn') {
@@ -115,9 +119,7 @@ mainContainer.addEventListener('click', function (event) {
         const location = parentNode.querySelector('.location').innerText
         const type = parentNode.querySelector('.type').innerText
         const salary = parentNode.querySelector('.salary').innerText
-
         const description = parentNode.querySelector('.description').innerText
-
 
         const interveiwStatus = parentNode.querySelector('.status');
         interveiwStatus.innerText = 'Interview';
@@ -152,26 +154,22 @@ mainContainer.addEventListener('click', function (event) {
         }
         // console.log(cardInfo);
 
-        // ---------------------------------------------------
+        // ---------------------------------------------
         const plantExist = interviewList.find(item => item.companyName == cardInfo.companyName)
         if (!plantExist) {
             interviewList.push(cardInfo)
         }
-        console.log(interviewList);
 
-        //-----------------------------------------
-        let index = rejectedList.findIndex(
-            item => item.companyName == cardInfo.companyName
-        )
-        if (index !== -1) {
-            rejectedList.splice(index, 1)
+        // ---------------------------------------------
+        rejectedList = rejectedList.filter(item => item.companyName != cardInfo.companyName)
+        if (currentStatus == "rejected-tab-btn") {
+            renderRejected()
         }
-       
-
         calculetCount()
-        renderInterview()
 
-    } else if (event.target.classList.contains('tab-rejected-btn')) {
+
+    }
+    else if (event.target.classList.contains('tab-rejected-btn')) {
         const parentNode = event.target.parentNode.parentNode;
 
         const companyName = parentNode.querySelector('.companyName').innerText
@@ -179,9 +177,7 @@ mainContainer.addEventListener('click', function (event) {
         const location = parentNode.querySelector('.location').innerText
         const type = parentNode.querySelector('.type').innerText
         const salary = parentNode.querySelector('.salary').innerText
-
         const description = parentNode.querySelector('.description').innerText
-
 
         const interveiwStatus = parentNode.querySelector('.status');
         interveiwStatus.innerText = 'Rejected';
@@ -222,34 +218,49 @@ mainContainer.addEventListener('click', function (event) {
             rejectedList.push(cardInfo)
         }
 
-        // ------------------------------------------
-        let index = interviewList.findIndex(
-            item => item.companyName == cardInfo.companyName
-        )
-        if (index !== -1) {
-            interviewList.splice(index, 1)
+        // ---------------------------------------------
+        interviewList = interviewList.filter(item => item.companyName != cardInfo.companyName)
+        if (currentStatus == "interveiw-tab-btn") {
+            renderInterview()
+        }
+        calculetCount()
+    }
+    else if (event.target.closest('.delete-btn')) {
+        const card = event.target.closest('.card')
+        const companyName = card.querySelector('.companyName').innerText
+        
+        interviewList = interviewList.filter(item => item.companyName !== companyName)
+        rejectedList = rejectedList.filter(item => item.companyName !== companyName)
+
+        if (activeTab === 'all') {
+            card.remove()
+        }
+        else if (activeTab === 'interview') {
+            renderInterview()
+        } else if (activeTab === 'rejected') {
+            renderRejected()
         }
 
-
-        console.log(rejectedList);
-
-
         calculetCount()
-        renderRejected()
-
     }
-
 })
 
 
-// ===Step-7---===
+// ===Step-7---Interview---===
 function renderInterview() {
     tabSection.innerHTML = ''
+
+    if (interviewList.length === 0) {
+        emptyState.classList.remove('hidden')
+        return
+    } else {
+        emptyState.classList.add('hidden')
+    }
 
     for (let interveiw of interviewList) {
         console.log(interveiw);
         let div = document.createElement('div')
-        div.className = "flex justify-between bg-white p-4 rounded"
+        div.className = "card flex justify-between bg-white p-4 rounded"
         div.innerHTML = `
         <!-- card main contain -->
                 <div>
@@ -287,14 +298,21 @@ function renderInterview() {
         tabSection.appendChild(div)
     }
 }
-// ===Step-8---===
+// ===Step-8---Rejected---===
 function renderRejected() {
     tabSection.innerHTML = ''
+
+    if (rejectedList.length === 0) {
+        emptyState.classList.remove('hidden')
+        return
+    } else {
+        emptyState.classList.add('hidden')
+    }
 
     for (let rejected of rejectedList) {
         console.log(rejected);
         let div = document.createElement('div')
-        div.className = "flex justify-between bg-white p-4 rounded"
+        div.className = "card flex justify-between bg-white p-4 rounded"
         div.innerHTML = `
         <!-- card main contain -->
                 <div>
