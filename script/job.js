@@ -1,7 +1,7 @@
 // ===Step-4---faka array===
 let interviewList = [];
 let rejectedList = [];
-
+let activeTab = 'all';
 
 
 // ===Step-1---call count number===
@@ -35,12 +35,23 @@ const rejectedTabBtn = document.getElementById('rejected-tab-btn')
 
 // ===Step-3---push count===
 function calculetCount() {
+
     total.innerText = allJobCard.children.length
     interviewCount.innerText = interviewList.length
     rejectedCount.innerText = rejectedList.length
-    tabCount.innerText = allJobCard.children.length
+
+    if (activeTab === 'interview') {
+        tabCount.innerText = interviewList.length
+    }
+    else if (activeTab === 'rejected') {
+        tabCount.innerText = rejectedList.length
+    }
+    else {
+        tabCount.innerText = allJobCard.children.length
+    }
 }
 calculetCount()
+
 
 
 
@@ -62,10 +73,31 @@ function toggleStyle(id) {
     selected.classList.remove('bg-[#F1F2F4]', 'text-black')
     selected.classList.add('bg-[#3B82F6]', 'text-white')
 
-    if( id==='interveiw-tab-btn'){
+    if (id == 'interveiw-tab-btn') {
         allJobCard.classList.add('hidden')
         tabSection.classList.remove('hidden')
+        renderInterview()
+    } else if (id == 'all-tab-btn') {
+        allJobCard.classList.remove('hidden')
+        tabSection.classList.add('hidden')
+    } else if (id == 'rejected-tab-btn') {
+        allJobCard.classList.add('hidden')
+        tabSection.classList.remove('hidden')
+        renderRejected()
     }
+
+
+    // -------------------------------
+    if (id == 'interveiw-tab-btn') {
+        activeTab = 'interview';
+    }
+    else if (id == 'rejected-tab-btn') {
+        activeTab = 'rejected';
+    }
+    else {
+        activeTab = 'all';
+    }
+    calculetCount()
 }
 
 
@@ -83,26 +115,19 @@ mainContainer.addEventListener('click', function (event) {
         const location = parentNode.querySelector('.location').innerText
         const type = parentNode.querySelector('.type').innerText
         const salary = parentNode.querySelector('.salary').innerText
-        const status = parentNode.querySelector('.status').innerText
+
         const description = parentNode.querySelector('.description').innerText
 
 
-        const cardInfo = {
-            companyName,
-            position,
-            location,
-            type,
-            salary,
-            description,
-            status
-        }
-        // console.log(cardInfo);
-
-        const plantExist = interviewList.find(item => item.companyName == cardInfo.companyName)
-
         const interveiwStatus = parentNode.querySelector('.status');
         interveiwStatus.innerText = 'Interview';
-        interveiwStatus.classList.remove('bg-[#F1F2F4]','py-1', 'px-4');
+        interveiwStatus.classList.remove(
+            'bg-[#F1F2F4]',
+            'bg-[#EF4444]',
+            'bg-[#10B981]',
+            'py-1',
+            'px-4'
+        );
         interveiwStatus.classList.add(
             'border-2',
             'py-1',
@@ -116,13 +141,104 @@ mainContainer.addEventListener('click', function (event) {
             'hover:bg-transparent'
         );
 
+        const cardInfo = {
+            companyName,
+            position,
+            location,
+            type,
+            salary,
+            description,
+            status: "Interview"
+        }
+        // console.log(cardInfo);
+
+        // ---------------------------------------------------
+        const plantExist = interviewList.find(item => item.companyName == cardInfo.companyName)
         if (!plantExist) {
             interviewList.push(cardInfo)
         }
         console.log(interviewList);
 
+        //-----------------------------------------
+        let index = rejectedList.findIndex(
+            item => item.companyName == cardInfo.companyName
+        )
+        if (index !== -1) {
+            rejectedList.splice(index, 1)
+        }
+       
+
+        calculetCount()
         renderInterview()
+
+    } else if (event.target.classList.contains('tab-rejected-btn')) {
+        const parentNode = event.target.parentNode.parentNode;
+
+        const companyName = parentNode.querySelector('.companyName').innerText
+        const position = parentNode.querySelector('.position').innerText
+        const location = parentNode.querySelector('.location').innerText
+        const type = parentNode.querySelector('.type').innerText
+        const salary = parentNode.querySelector('.salary').innerText
+
+        const description = parentNode.querySelector('.description').innerText
+
+
+        const interveiwStatus = parentNode.querySelector('.status');
+        interveiwStatus.innerText = 'Rejected';
+        interveiwStatus.classList.remove(
+            'bg-[#F1F2F4]',
+            'bg-[#10B981]',
+            'bg-[#EF4444]',
+            'py-1',
+            'px-4'
+        );
+        interveiwStatus.classList.add(
+            'border-2',
+            'py-1',
+            'px-4',
+            'bg-[#EF4444]',
+            'text-white',
+            'rounded',
+            'border-transparent',
+            'hover:border-[#EF4444]',
+            'hover:text-[#EF4444]',
+            'hover:bg-transparent'
+        );
+
+        const cardInfo = {
+            companyName,
+            position,
+            location,
+            type,
+            salary,
+            description,
+            status: "Rejected"
+        }
+        // console.log(cardInfo);
+
+        // ---------------------------------------------
+        const plantExist = rejectedList.find(item => item.companyName == cardInfo.companyName)
+        if (!plantExist) {
+            rejectedList.push(cardInfo)
+        }
+
+        // ------------------------------------------
+        let index = interviewList.findIndex(
+            item => item.companyName == cardInfo.companyName
+        )
+        if (index !== -1) {
+            interviewList.splice(index, 1)
+        }
+
+
+        console.log(rejectedList);
+
+
+        calculetCount()
+        renderRejected()
+
     }
+
 })
 
 
@@ -137,19 +253,64 @@ function renderInterview() {
         div.innerHTML = `
         <!-- card main contain -->
                 <div>
-                    <h1 id="" class="companyName text-xl font-semibold">Mobile First Corp</h1>
+                    <h1 id="" class="companyName text-xl font-semibold">${interveiw.companyName}</h1>
 
-                    <p id="" class="position text-[#64748B]">React Native Developer</p>
+                    <p id="" class="position text-[#64748B]">${interveiw.position}</p>
 
                     <div id="" class="flex gap-4 my-4">
-                        <p class="location text-[#64748B]">Remote</p>
-                        <p class="type text-[#64748B]">Full-time</p>
-                        <p class="salary text-[#64748B]">$100,000 - $175,000</p>
+                        <p class="location text-[#64748B]"> ${interveiw.location}</p>
+                        <p class="type text-[#64748B]">${interveiw.type}</p>
+                        <p class="salary text-[#64748B]">${interveiw.salary}</p>
                     </div>
 
-                    <p class="status inline-block bg-[#F1F2F4] py-1 px-4">Not Applied</p>
+                  <p class="status inline-block border-2 py-1 px-4 bg-[#10B981] text-white rounded border-transparent">${interveiw.status}</p>
 
-                    <p id="" class="description my-2">Build cross-platform applications using React Native.</p>
+                    <p id="" class="description my-2"> ${interveiw.description}</p>
+
+                    <div class="flex gap-3 my-2">
+                        <button id="btnInterveiw"
+                            class="tab-interview-btn border-2 py-1 px-4 border-[#10B981] text-[#10B981] rounded  hover:bg-[#10B981] hover:text-white"
+                            data-tab="Interview">Interview</button>
+
+                        <button id="btnRejected"
+                            class="tab-rejected-btn border-2 py-1 px-4 border-[#EF4444] text-[#EF4444] rounded hover:bg-[#EF4444] hover:text-white"
+                            data-tab="Rejected">Rejected</button>
+                    </div>
+                </div>
+
+                <!-- card delete button -->
+                <div id="btnDelete" class="delete-btn">
+                    <i
+                        class="fa-solid fa-trash mr-2  border-2 border-[##64748B] text-[#64748B] p-2 rounded-full hover:border-red-600 hover:text-red-600"></i>
+                </div>
+        `
+        tabSection.appendChild(div)
+    }
+}
+// ===Step-8---===
+function renderRejected() {
+    tabSection.innerHTML = ''
+
+    for (let rejected of rejectedList) {
+        console.log(rejected);
+        let div = document.createElement('div')
+        div.className = "flex justify-between bg-white p-4 rounded"
+        div.innerHTML = `
+        <!-- card main contain -->
+                <div>
+                    <h1 id="" class="companyName text-xl font-semibold">${rejected.companyName}</h1>
+
+                    <p id="" class="position text-[#64748B]">${rejected.position}</p>
+
+                    <div id="" class="flex gap-4 my-4">
+                        <p class="location text-[#64748B]"> ${rejected.location}</p>
+                        <p class="type text-[#64748B]">${rejected.type}</p>
+                        <p class="salary text-[#64748B]">${rejected.salary}</p>
+                    </div>
+
+                  <p class="status inline-block border-2 py-1 px-4 bg-[#EF4444] text-white rounded border-transparent">${rejected.status}</p>
+
+                    <p id="" class="description my-2"> ${rejected.description}</p>
 
                     <div class="flex gap-3 my-2">
                         <button id="btnInterveiw"
