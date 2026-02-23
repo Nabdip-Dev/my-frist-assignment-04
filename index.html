@@ -49,12 +49,20 @@
 
         <!-- Tabs button -->
         <div class="flex gap-4 mb-6">
-            <button onclick="toggleStyle('all-tab-btn')" id="all-tab-btn" class="tab-btn bg-[#3B82F6] text-white py-1 px-4 rounded" data-tab="All">All</button>
+            <button onclick="toggleStyle('all-tab-btn')" id="all-tab-btn"
+                class="tab-btn bg-[#3B82F6] text-white py-1 px-4 rounded" data-tab="All">All</button>
 
-            <button onclick="toggleStyle('interveiw-tab-btn')" id="interveiw-tab-btn" class="tab-btn bg-[#F1F2F4] py-1 px-4 rounded" data-tab="Interview">Interview</button>
+            <button onclick="toggleStyle('interveiw-tab-btn')" id="interveiw-tab-btn"
+                class="tab-btn bg-[#F1F2F4] py-1 px-4 rounded" data-tab="Interview">Interview</button>
 
-            <button onclick="toggleStyle('rejected-tab-btn')" id="rejected-tab-btn" class="tab-btn bg-[#F1F2F4] py-1 px-4 rounded" data-tab="Rejected">Rejected</button>
+            <button onclick="toggleStyle('rejected-tab-btn')" id="rejected-tab-btn"
+                class="tab-btn bg-[#F1F2F4] py-1 px-4 rounded" data-tab="Rejected">Rejected</button>
         </div>
+
+        <!-- Tab section -->
+        <section id="tabSection" class="hidden">
+
+        </section>
 
         <!-- job coantainer -->
         <section id="jobsContainer" class="space-y-6 ">
@@ -80,11 +88,11 @@
 
                     <div class="flex gap-3 my-2">
                         <button id="btnInterveiw"
-                            class="tab-btn border-2 py-1 px-4 border-[#10B981] text-[#10B981] rounded  hover:bg-[#10B981] hover:text-white"
+                            class="tab-interview-btn border-2 py-1 px-4 border-[#10B981] text-[#10B981] rounded  hover:bg-[#10B981] hover:text-white"
                             data-tab="Interview">Interview</button>
 
                         <button id="btnRejected"
-                            class="tab-btn border-2 py-1 px-4 border-[#EF4444] text-[#EF4444] rounded hover:bg-[#EF4444] hover:text-white"
+                            class="tab-rejected-btn border-2 py-1 px-4 border-[#EF4444] text-[#EF4444] rounded hover:bg-[#EF4444] hover:text-white"
                             data-tab="Rejected">Rejected</button>
                     </div>
                 </div>
@@ -94,7 +102,7 @@
                     <i
                         class="fa-solid fa-trash mr-2  border-2 border-[##64748B] text-[#64748B] p-2 rounded-full hover:border-red-600 hover:text-red-600"></i>
                 </div>
-                
+
             </div>
 
 
@@ -103,7 +111,7 @@
 
                 <!-- card main contain -->
                 <div>
-                    <h1 id="" class="companyName text-xl font-semibold">Mobile First Corp</h1>
+                    <h1 id="" class="companyName text-xl font-semibold">Mobile First Corp 2</h1>
 
                     <p id="" class="position text-[#64748B]">React Native Developer</p>
 
@@ -119,11 +127,11 @@
 
                     <div class="flex gap-3 my-2">
                         <button id="btnInterveiw"
-                            class="tab-btn border-2 py-1 px-4 border-[#10B981] text-[#10B981] rounded  hover:bg-[#10B981] hover:text-white"
+                            class="tab-interview-btn border-2 py-1 px-4 border-[#10B981] text-[#10B981] rounded  hover:bg-[#10B981] hover:text-white"
                             data-tab="Interview">Interview</button>
 
                         <button id="btnRejected"
-                            class="tab-btn border-2 py-1 px-4 border-[#EF4444] text-[#EF4444] rounded hover:bg-[#EF4444] hover:text-white"
+                            class="tab-rejected-btn border-2 py-1 px-4 border-[#EF4444] text-[#EF4444] rounded hover:bg-[#EF4444] hover:text-white"
                             data-tab="Rejected">Rejected</button>
                     </div>
                 </div>
