@@ -14,7 +14,7 @@ getElementsByClassName("class") → সব element দেয় যাদের 
 querySelector("selector") → CSS selector দিয়ে প্রথম matching element দেয়।
 
 querySelectorAll("selector") → CSS selector দিয়ে সব matching element দেয় (NodeList হিসেবে)।
------------
+
 
 
 
@@ -30,7 +30,7 @@ newDiv.textContent = "Hello World";
 
 // page-এ add করা
 document.body.appendChild(newDiv); // body-এর শেষের দিকে
------------
+
 
 
 
@@ -53,7 +53,7 @@ button click করলে console-এ দেখা যাবে:
 
 Child clicked
 Parent clicked
------------
+
 
 
 
@@ -74,7 +74,7 @@ document.getElementById("parent").addEventListener("click", function(e) {
     console.log("Button clicked:", e.target.textContent);
   }
 });
------------
+
 
 
 
