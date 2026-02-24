@@ -1,43 +1,92 @@
----
 
-## **File 2 – ANSWERS_English.md**
 
-```markdown
-# Assignment 4 – Questions & Answers
+Answers to Questions:
+----------------------
 
-### 1. Difference between getElementById, getElementsByClassName, querySelector / querySelectorAll
-- `getElementById` → Selects a single element by its ID.  
-- `getElementsByClassName` → Returns all elements with the same class (HTMLCollection).  
-- `querySelector` → Returns the first matching element using CSS selector.  
-- `querySelectorAll` → Returns all matching elements using CSS selector (NodeList).
+1. What is the difference between getElementById, getElementsByClassName, and querySelector / querySelectorAll?
 
----
+1.Answers:
+-----------
+getElementById("id") → একটাই element দেয় যেটার ID আছে।
 
-### 2. How to create and insert a new element into the DOM
-```js
-let div = document.createElement("div");
-div.textContent = "Hello World";
-div.classList.add("job-card");
-document.querySelector(".jobs-section").appendChild(div);
-3. What is Event Bubbling and how it works
+getElementsByClassName("class") → সব element দেয় যাদের একই class আছে (HTMLCollection হিসেবে)।
 
-Event propagates from child element to parent elements.
+querySelector("selector") → CSS selector দিয়ে প্রথম matching element দেয়।
 
-Example: Clicking a button inside a div triggers the parent div click event unless stopPropagation() is used.
+querySelectorAll("selector") → CSS selector দিয়ে সব matching element দেয় (NodeList হিসেবে)।
 
-4. What is Event Delegation and why it is useful
 
-Attaching a listener on parent element to handle child elements’ events.
 
-Advantage: No need to add separate listeners for dynamically added elements.
 
-document.querySelector(".jobs-section").addEventListener("click", function(e){
-    if(e.target.classList.contains("interview-btn")){
-        console.log("Interview clicked!");
-    }
+2. How do you create and insert a new element into the DOM?
+
+2.Answers:
+-----------
+// নতুন div বানানো
+let newDiv = document.createElement("div"); 
+
+// কিছু লেখা যোগ করা
+newDiv.textContent = "Hello World";
+
+// page-এ add করা
+document.body.appendChild(newDiv); // body-এর শেষের দিকে
+
+
+
+
+3. What is Event Bubbling? And how does it work?
+
+3.Answers:
+-----------
+Event Bubbling হলো যখন event একটা ছোট element থেকে শুরু করে ধাপে ধাপে বড় element এর দিকে চলে যায়।
+
+উদাহরণ:
+
+<div id="parent">
+  <button id="child">Click Me</button>
+</div>
+
+document.getElementById("parent").addEventListener("click", () => console.log("Parent clicked"));
+document.getElementById("child").addEventListener("click", () => console.log("Child clicked"));
+
+button click করলে console-এ দেখা যাবে:
+
+Child clicked
+Parent clicked
+
+
+
+
+4. What is Event Delegation in JavaScript? Why is it useful?
+
+4.Answers:
+-----------
+Event Delegation মানে parent element-এ listener বসানো এবং child element-এর event handle করা।
+
+কারণ:
+
+অনেক child element-এর জন্য আলাদা listener লাগবে না।
+
+নতুন dynamically added element-ও কাজ করবে।
+
+document.getElementById("parent").addEventListener("click", function(e) {
+  if(e.target && e.target.tagName === "BUTTON") {
+    console.log("Button clicked:", e.target.textContent);
+  }
 });
-5. Difference between preventDefault() and stopPropagation
 
-preventDefault() → Prevents browser default action (like following a link).
 
-stopPropagation() → Stops event from bubbling to parent elements.
+
+
+5. What is the difference between preventDefault() and stopPropagation() methods?
+
+5.Answers:
+-----------
+preventDefault() → default action বন্ধ করে। যেমন: link click করলে page reload বন্ধ।
+
+stopPropagation() → event bubbling বা capturing বন্ধ করে। Parent element-এ event পৌঁছাবে না।
+
+link.addEventListener("click", function(e) {
+  e.preventDefault(); // default action বন্ধ
+  e.stopPropagation(); // parent পর্যন্ত event যাবে না
+});

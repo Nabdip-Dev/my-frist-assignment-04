@@ -74,6 +74,7 @@ function toggleStyle(id) {
     const selected = document.getElementById(id)
     currentStatus = id;
     // console.log(selected);
+
     selected.classList.remove('bg-[#F1F2F4]', 'text-black')
     selected.classList.add('bg-[#3B82F6]', 'text-white')
 
@@ -165,9 +166,8 @@ mainContainer.addEventListener('click', function (event) {
         if (currentStatus == "rejected-tab-btn") {
             renderRejected()
         }
-        calculetCount()
 
-
+        calculetCount();
     }
     else if (event.target.classList.contains('tab-rejected-btn')) {
         const parentNode = event.target.parentNode.parentNode;
@@ -223,12 +223,13 @@ mainContainer.addEventListener('click', function (event) {
         if (currentStatus == "interveiw-tab-btn") {
             renderInterview()
         }
-        calculetCount()
+        
+        calculetCount();
     }
     else if (event.target.closest('.delete-btn')) {
         const card = event.target.closest('.card')
         const companyName = card.querySelector('.companyName').innerText
-        
+
         interviewList = interviewList.filter(item => item.companyName !== companyName)
         rejectedList = rejectedList.filter(item => item.companyName !== companyName)
 
